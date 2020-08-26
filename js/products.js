@@ -4,27 +4,28 @@ document.addEventListener("DOMContentLoaded", function (e) {
         if (resultObj.status === "ok") {
             categoriesArray = resultObj.data;
             //Muestro las categorías ordenadas
-            showCategoriesList(categoriesArray);
+            mostrarLista(categoriesArray);
         }
         hideSpinner();
     });
 });
 var categoriesArray = [];
-function showCategoriesList(array) {
+function mostrarLista(array) {
     let htmlContentToAppend = "";
     array.forEach(item => {
         htmlContentToAppend += `
-            <div>             
-                <hr>
-                <img src="` + item.imgSrc + `" alt="` + item.description + `" class="imagen">                
-                <h4>`+ item.name + `</h4>                
-                <p>`+ item.description + ` <small class="vendidos">Vendidos:` + item.soldCount + ` </small></p> 
-                <p class="precio">Precio: <span class="numero">` + item.currency +` `+ item.cost + ` </span></p>                                                              
-            </div>
-          `
+        <div>             
+        <hr>
+        <img src="` + item.imgSrc + `" alt="` + item.description + `" class="imagen">                
+        <h4>`+ item.name + `</h4>                
+        <p>`+ item.description + ` <small class="vendidos">Vendidos:` + item.soldCount + ` </small></p> 
+        <p class="precio">Precio: <span class="numero">` + item.currency + ` ` + item.cost + ` </span></p>                                                              
+        </div>
+        `
     });
     document.getElementById("list-container").innerHTML = htmlContentToAppend;
 }
+
 function filtroEntre() {
     fetch(PRODUCTS_URL)
         .then(function (data) {
@@ -37,21 +38,10 @@ function filtroEntre() {
         const arreglo = datos.filter((fax) => {
             return (fax.cost <= document.getElementById("precioMax").value && fax.cost >= document.getElementById("precioMin").value);
         });
-        let htmlContentToAppend = "";
-        arreglo.forEach(item => {
-            htmlContentToAppend += `
-            <div>             
-                <hr>
-                <img src="` + item.imgSrc + `" alt="` + item.description + `" class="imagen">                
-                <h4>`+ item.name + `</h4>                
-                <p>`+ item.description + ` <small class="vendidos">Vendidos:` + item.soldCount + ` </small></p> 
-                <p class="precio">Precio: <span class="numero">` + item.currency +` `+ item.cost + ` </span></p>                                                              
-            </div>
-          `
-        });
-        document.getElementById("list-container").innerHTML = htmlContentToAppend;
+        mostrarLista(arreglo);
     }
 }
+
 function filtroMayorAMenor() {
     fetch(PRODUCTS_URL)
         .then(function (data) {
@@ -64,21 +54,10 @@ function filtroMayorAMenor() {
         const arreglo = datos.sort(function (a, b) {
             return parseFloat(b.cost) - parseFloat(a.cost);
         });
-        let htmlContentToAppend = "";
-        arreglo.forEach(item => {
-            htmlContentToAppend += `
-            <div>             
-                <hr>
-                <img src="` + item.imgSrc + `" alt="` + item.description + `" class="imagen">                
-                <h4>`+ item.name + `</h4>                
-                <p>`+ item.description + ` <small class="vendidos">Vendidos:` + item.soldCount + ` </small></p> 
-                <p class="precio">Precio: <span class="numero">` + item.currency +` `+ item.cost + ` </span></p>                                                              
-            </div>
-          `
-        });
-        document.getElementById("list-container").innerHTML = htmlContentToAppend;
+        mostrarLista(arreglo);
     }
 }
+
 function filtroMenorAMayor() {
     fetch(PRODUCTS_URL)
         .then(function (data) {
@@ -91,21 +70,10 @@ function filtroMenorAMayor() {
         const arreglo = datos.sort(function (a, b) {
             return parseFloat(a.cost) - parseFloat(b.cost);
         });
-        let htmlContentToAppend = "";
-        arreglo.forEach(item => {
-            htmlContentToAppend += `
-            <div>             
-                <hr>
-                <img src="` + item.imgSrc + `" alt="` + item.description + `" class="imagen">                
-                <h4>`+ item.name + `</h4>                
-                <p>`+ item.description + ` <small class="vendidos">Vendidos:` + item.soldCount + ` </small></p> 
-                <p class="precio">Precio: <span class="numero">` + item.currency +` `+ item.cost + ` </span></p>                                                              
-            </div>
-          `
-        });
-        document.getElementById("list-container").innerHTML = htmlContentToAppend;
+        mostrarLista(arreglo);
     }
 }
+
 function filtroMasVendido() {
     fetch(PRODUCTS_URL)
         .then(function (data) {
@@ -118,18 +86,22 @@ function filtroMasVendido() {
         const arreglo = datos.sort(function (a, b) {
             return parseFloat(b.soldCount) - parseFloat(a.soldCount);
         });
-        let htmlContentToAppend = "";
-        arreglo.forEach(item => {
-            htmlContentToAppend += `
-            <div>             
-                <hr>
-                <img src="` + item.imgSrc + `" alt="` + item.description + `" class="imagen">                
-                <h4>`+ item.name + `</h4>                
-                <p>`+ item.description + ` <small class="vendidos">Vendidos:` + item.soldCount + ` </small></p> 
-                <p class="precio">Precio: <span class="numero">` + item.currency +` `+ item.cost + ` </span></p>                                                              
-            </div>
-          `
-        });
-        document.getElementById("list-container").innerHTML = htmlContentToAppend;
+        mostrarLista(arreglo);
+    }
+}
+
+function filtroString() {
+    fetch(PRODUCTS_URL)
+        .then(function (data) {
+            return data.json();
+        })
+        .then(function (myJson) {
+            filtrar(myJson)
+        })
+    function filtrar(datos) {
+        const arreglo = datos.filter(function (item) {
+            return item.name.toLowerCase().includes(document.getElementById("stringBusqueda").value) || item.description.toLowerCase().includes(document.getElementById("stringBusqueda").value);
+        })
+        mostrarLista(arreglo);
     }
 }
