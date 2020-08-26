@@ -40,8 +40,28 @@ var getJSONData = function(url){
     });
 }
 
-//Función que se ejecuta una vez que se haya lanzado el evento de
-//que el documento se encuentra cargado, es decir, se encuentran todos los
-//elementos HTML presentes.
+if((!sessionStorage.getItem("check"))&& !(location.href.endsWith("login.html"))){
+  location.href="login.html"
+}
+function logout(){
+  event.preventDefault();
+  sessionStorage.removeItem("check");
+  sessionStorage.removeItem("Usuario");
+  window.location.href="login.html";
+}
+
 document.addEventListener("DOMContentLoaded", function(e){
+  if(sessionStorage.getItem("check")){
+  var usuario = JSON.parse(sessionStorage.getItem("Usuario"));
+  let linkPerfil = document.createElement("a");
+  linkPerfil.href = "my-profile.html";
+  linkPerfil.innerHTML = usuario.nombre;
+  linkPerfil.className = "py-2 d-none d-md-inline-block";
+  let logOut = document.createElement("a");
+  logOut.innerHTML = "Cerrar Sesion";
+  logOut.href= "#";
+  logOut.setAttribute("onclick","logout();return false");
+  document.querySelector("nav.site-header").lastElementChild.appendChild(linkPerfil);
+  document.querySelector("nav.site-header").lastElementChild.appendChild(logOut);
+  }
 });

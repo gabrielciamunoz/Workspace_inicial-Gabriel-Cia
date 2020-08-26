@@ -1,6 +1,135 @@
-//Función que se ejecuta una vez que se haya lanzado el evento de
-//que el documento se encuentra cargado, es decir, se encuentran todos los
-//elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function (e) {
-
+    showSpinner();
+    getJSONData(PRODUCTS_URL).then(function (resultObj) {
+        if (resultObj.status === "ok") {
+            categoriesArray = resultObj.data;
+            //Muestro las categorías ordenadas
+            showCategoriesList(categoriesArray);
+        }
+        hideSpinner();
+    });
 });
+var categoriesArray = [];
+function showCategoriesList(array) {
+    let htmlContentToAppend = "";
+    array.forEach(item => {
+        htmlContentToAppend += `
+            <div>             
+                <hr>
+                <img src="` + item.imgSrc + `" alt="` + item.description + `" class="imagen">                
+                <h4>`+ item.name + `</h4>                
+                <p>`+ item.description + ` <small class="vendidos">Vendidos:` + item.soldCount + ` </small></p> 
+                <p class="precio">Precio: <span class="numero">` + item.currency +` `+ item.cost + ` </span></p>                                                              
+            </div>
+          `
+    });
+    document.getElementById("list-container").innerHTML = htmlContentToAppend;
+}
+function filtroEntre() {
+    fetch(PRODUCTS_URL)
+        .then(function (data) {
+            return data.json();
+        })
+        .then(function (myJson) {
+            filtrar(myJson)
+        })
+    function filtrar(datos) {
+        const arreglo = datos.filter((fax) => {
+            return (fax.cost <= document.getElementById("precioMax").value && fax.cost >= document.getElementById("precioMin").value);
+        });
+        let htmlContentToAppend = "";
+        arreglo.forEach(item => {
+            htmlContentToAppend += `
+            <div>             
+                <hr>
+                <img src="` + item.imgSrc + `" alt="` + item.description + `" class="imagen">                
+                <h4>`+ item.name + `</h4>                
+                <p>`+ item.description + ` <small class="vendidos">Vendidos:` + item.soldCount + ` </small></p> 
+                <p class="precio">Precio: <span class="numero">` + item.currency +` `+ item.cost + ` </span></p>                                                              
+            </div>
+          `
+        });
+        document.getElementById("list-container").innerHTML = htmlContentToAppend;
+    }
+}
+function filtroMayorAMenor() {
+    fetch(PRODUCTS_URL)
+        .then(function (data) {
+            return data.json();
+        })
+        .then(function (myJson) {
+            filtrar(myJson)
+        })
+    function filtrar(datos) {
+        const arreglo = datos.sort(function (a, b) {
+            return parseFloat(b.cost) - parseFloat(a.cost);
+        });
+        let htmlContentToAppend = "";
+        arreglo.forEach(item => {
+            htmlContentToAppend += `
+            <div>             
+                <hr>
+                <img src="` + item.imgSrc + `" alt="` + item.description + `" class="imagen">                
+                <h4>`+ item.name + `</h4>                
+                <p>`+ item.description + ` <small class="vendidos">Vendidos:` + item.soldCount + ` </small></p> 
+                <p class="precio">Precio: <span class="numero">` + item.currency +` `+ item.cost + ` </span></p>                                                              
+            </div>
+          `
+        });
+        document.getElementById("list-container").innerHTML = htmlContentToAppend;
+    }
+}
+function filtroMenorAMayor() {
+    fetch(PRODUCTS_URL)
+        .then(function (data) {
+            return data.json();
+        })
+        .then(function (myJson) {
+            filtrar(myJson)
+        })
+    function filtrar(datos) {
+        const arreglo = datos.sort(function (a, b) {
+            return parseFloat(a.cost) - parseFloat(b.cost);
+        });
+        let htmlContentToAppend = "";
+        arreglo.forEach(item => {
+            htmlContentToAppend += `
+            <div>             
+                <hr>
+                <img src="` + item.imgSrc + `" alt="` + item.description + `" class="imagen">                
+                <h4>`+ item.name + `</h4>                
+                <p>`+ item.description + ` <small class="vendidos">Vendidos:` + item.soldCount + ` </small></p> 
+                <p class="precio">Precio: <span class="numero">` + item.currency +` `+ item.cost + ` </span></p>                                                              
+            </div>
+          `
+        });
+        document.getElementById("list-container").innerHTML = htmlContentToAppend;
+    }
+}
+function filtroMasVendido() {
+    fetch(PRODUCTS_URL)
+        .then(function (data) {
+            return data.json();
+        })
+        .then(function (myJson) {
+            filtrar(myJson)
+        })
+    function filtrar(datos) {
+        const arreglo = datos.sort(function (a, b) {
+            return parseFloat(b.soldCount) - parseFloat(a.soldCount);
+        });
+        let htmlContentToAppend = "";
+        arreglo.forEach(item => {
+            htmlContentToAppend += `
+            <div>             
+                <hr>
+                <img src="` + item.imgSrc + `" alt="` + item.description + `" class="imagen">                
+                <h4>`+ item.name + `</h4>                
+                <p>`+ item.description + ` <small class="vendidos">Vendidos:` + item.soldCount + ` </small></p> 
+                <p class="precio">Precio: <span class="numero">` + item.currency +` `+ item.cost + ` </span></p>                                                              
+            </div>
+          `
+        });
+        document.getElementById("list-container").innerHTML = htmlContentToAppend;
+    }
+}

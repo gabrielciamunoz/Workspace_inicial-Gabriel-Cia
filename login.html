@@ -17,37 +17,43 @@
     html, body{
       height: 100%;
     }
-
     body {
-      display: -ms-flexbox;
-      display: flex;
-      -ms-flex-align: center;
-      align-items: center;
-      padding-top: 40px;
-      padding-bottom: 40px;
-      background-color: #f5f5f5;
-    }
 
+      background-color: #efeff0;
+      font-family: sans-serif;
+    }
     .signin {
       width: 100%;
       max-width: 330px;
       padding: 15px;
       margin: auto;
     }
+    .forma{
+      width: 300px;
+      padding: 40px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      background-color: #191919;
+      text-align: center;
+    }
+    .forma h1{
+      color: #efeff0;
+    }
   </style>
 </head>
-
 <body class="text-center">
   <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 1 (Fecha de entrega: 16/08/2020) -> Punto 3 y 4.</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
-    </div>
+      <form class="forma">
+        <h1>Ingrese Usuario</h1>
+        <p><input type="text" id="usuario" name="usuario" placeholder="Usuario" required > </p>
+        <p><input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required></p> 
+        <p><input type="button" onclick="enviarAIndex()" value="Entrar" id="enviar"></p>  
+      </form>     
   </div>
-
+  
   <script src="js/init.js"></script>
-  <script src="js/login.js"></script>
+  <script src="js/login.js"></script>  
 </body>
 </html>
