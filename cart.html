@@ -27,6 +27,44 @@
         font-size: 3.5rem;
       }
     }
+
+    .contenedorArticulos {
+      border: 2px solid black;
+      margin: 10px;
+      margin-top: 30px;
+      padding: 15px;
+      float: left;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+      width: 65%;
+    }
+
+    .item {
+      border: 3px solid white;
+
+    }
+
+    .contenedorPrecio {
+      border: 2px solid black;
+      margin: 10px;
+      margin-top: 30px;
+      padding: 15px;
+      float: right;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      height: 500px;
+      width: 30%;
+    }
+
+    .botonComprar {
+      position: sticky;
+      bottom: 10px;
+
+    }
   </style>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
@@ -41,17 +79,35 @@
       <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
       <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
       <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
-      
     </div>
   </nav>
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 5 (Fecha de entrega: 11/10/2020) y Entrega 6 (Fecha de entrega: 25/10/2020).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
-    </div>
+
+  <div id="contenedorArticulos" class="contenedorArticulos">
+
   </div>
+
+  <div id="contenedorPrecio" class="contenedorPrecio">
+    <p>Sub Total: <span id="subTotal"></span></p>
+    <label for="envio">Seleccionar metodo de Envio:</label>
+    <p>
+      <select id="envio" onchange="precioEnvio()">
+        <option value="" disabled selected>--Seleccione su metodo de envio--</option>
+        <option value="5">Standard (12-15 dias) Costo del 5% sobre el subtotal</option>
+        <option value="7">Standard (5-8 dias) Costo del 7% sobre el subtotal</option>
+        <option value="15">Standard (2-5 dias) Costo del 15% sobre el subtotal</option>
+      </select>
+    </p>
+    <p>
+      <input type="text" required placeholder="Calle, Numero y Esquina">
+      <select required id="pais">
+        <option value="Uruguay">Uruguay</option>
+      </select>
+    </p>
+    <p>Precio del envio: <span id="precioEnvio"></span></p>
+    <p>Total: <span id="precioTotal"></span></p>
+    <button class="botonComprar">Comprar</button>
+  </div>
+
   <div id="spinner-wrapper">
     <div class="lds-ring">
       <div></div>

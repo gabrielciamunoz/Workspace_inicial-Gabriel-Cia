@@ -49,19 +49,29 @@ function logout(){
   sessionStorage.removeItem("Usuario");
   window.location.href="login.html";
 }
+function dropdown(){
+  var usuario = JSON.parse(sessionStorage.getItem("Usuario"));
+  let HTMLContentToAppend = `
+  <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  ` +usuario.nombre+ `
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="cart.html">Ver mi carrito</a>
+    <a class="dropdown-item" href="my-profile.html">Mi Perfil</a>
+    <a class="dropdown-item" onclick="logout()" href="#">Cerrar Sesión</a>
+  </div>
+</div>
+  `;
+  document.getElementById("contenedorDrop").innerHTML = HTMLContentToAppend;
+}
 
 document.addEventListener("DOMContentLoaded", function(e){
   if(sessionStorage.getItem("check")){
-  var usuario = JSON.parse(sessionStorage.getItem("Usuario"));
-  let linkPerfil = document.createElement("a");
-  linkPerfil.href = "my-profile.html";
-  linkPerfil.innerHTML = usuario.nombre;
-  linkPerfil.className = "py-2 d-none d-md-inline-block";
-  let logOut = document.createElement("a");
-  logOut.innerHTML = "Cerrar Sesion";
-  logOut.href= "#";
-  logOut.setAttribute("onclick","logout();return false");
-  document.querySelector("nav.site-header").lastElementChild.appendChild(linkPerfil);
-  document.querySelector("nav.site-header").lastElementChild.appendChild(logOut);
+  let contDropdown = document.createElement("div");
+  contDropdown.id = "contenedorDrop";
+  document.querySelector("nav.site-header").lastElementChild.appendChild(contDropdown);
+  dropdown();
+  document.querySelector("body > nav > div > a:nth-child(5)").remove();
   }
 });

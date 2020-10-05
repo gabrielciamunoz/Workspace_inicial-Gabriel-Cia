@@ -16,8 +16,8 @@ function mostrarLista(array) {
         htmlContentToAppend += `
         <div>             
         <hr>
-        <img src="` + item.imgSrc + `" alt="` + item.description + `" class="imagen">                
-        <h4>`+ item.name + `</h4>                
+        <a href="product-info.html?`+item.name+`"> <img src="` + item.imgSrc + `" alt="` + item.description + `" class="imagen"> </a>              
+        <h4> <a href="product-info.html?`+item.name+`">`+ item.name + `</a></h4>                
         <p>`+ item.description + ` <small class="vendidos">Vendidos:` + item.soldCount + ` </small></p> 
         <p class="precio">Precio: <span class="numero">` + item.currency + ` ` + item.cost + ` </span></p>                                                              
         </div>
@@ -35,10 +35,15 @@ function filtroEntre() {
             filtrar(myJson)
         })
     function filtrar(datos) {
+        if (document.getElementById("precioMax").value == "" || document.getElementById("precioMin").value == ""){
+            alert("Debes ingresar el precio Minimo y Maximo")
+        }else{
         const arreglo = datos.filter((fax) => {
             return (fax.cost <= document.getElementById("precioMax").value && fax.cost >= document.getElementById("precioMin").value);
         });
-        mostrarLista(arreglo);
+        mostrarLista(arreglo);    
+        }
+        
     }
 }
 

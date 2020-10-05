@@ -14,6 +14,49 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
 </head>
+<style>
+  body {
+    background-color: lightgrey;
+  }
+
+ .carousel-item{
+   width: 50%;
+   left: 25%;
+  }
+  .centrado {
+    text-align: center;
+    padding: 30px;
+  }
+  .carousel-control-prev{
+    background-color: black;
+    width: 10%;
+  }
+  .carousel-control-next{
+    background-color: black;
+    width: 10%;
+  }
+  .nombre {
+    font-weight: bolder;
+    font-size: 25px;
+    text-transform: capitalize;
+  }
+
+  .fecha {
+    float: right;
+  }
+
+  .card {
+    background-color: rgb(167, 167, 167);
+  }
+
+  .derecha {
+    float: right;
+  }
+
+  .precio {
+    font-weight: bold;
+  }
+</style>
 
 <body>
   <nav class="site-header sticky-top py-1 bg-dark">
@@ -25,22 +68,45 @@
       <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
     </div>
   </nav>
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 3 (Fecha de entrega: 13/09/2020) y Entrega 4 (Fecha de entrega: 20/09/2020).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
-    </div>
+  <div id="container p-5">
+
   </div>
-  <footer class="text-muted">
-    <div class="container">
-      <p class="float-right">
-        <a href="#">Volver arriba</a>
-      </p>
-      <p>Este sitio forma parte de Desarrollo Web - JAP - 2020</p>
-      <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+  <hr>
+  <h1>Comentarios</h1>
+  <div id="container comentarios">
+  </div>
+  <hr>
+  <form>
+    <h3>Nuevo Comentario</h3>
+
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">Comentario: </label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+        placeholder="Escriba su comentario aqui..." required></textarea>
     </div>
+
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Puntuación: </label>
+      <select class="form-control" id="exampleFormControlSelect1" required>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary" id="enviar">Enviar</button>
+
+  </form>
+  <hr>
+  <p>
+  <h3>Relacionados</h3>
+  <div id="Relacionados">
+
+  </div>
+  </p>
   </footer>
   <div id="spinner-wrapper">
     <div class="lds-ring">
